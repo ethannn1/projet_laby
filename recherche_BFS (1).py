@@ -1,4 +1,5 @@
 import networkx as nx
+import matplotlib.pyplot as plt
 
 class File:
     """ Classe File
@@ -26,8 +27,6 @@ class File:
     
     def present(self,x):
         return x in self.L
-        
-
 
 def chercher_bfs(laby:nx.Graph, source:int = None, destination:int = None)->list:
     """ Cherche le chemin le plus court entre les sommets source et destination
@@ -49,15 +48,15 @@ def chercher_bfs(laby:nx.Graph, source:int = None, destination:int = None)->list
 
     while not f.vide():
         tmp = f.defiler()
-        
         if tmp not in sommet_visite:
             sommet_visite.append(tmp)
         for voisin in laby.neighbors(tmp):
-            if not f.present(voisin):
+            if voisin not in sommet_visite and f.present(voisin) == False:
                 f.enfiler(voisin)
-                  
+        
     return sommet_visite
 
+    
 if __name__ == "__main__":
     # Création du labyrinthe de test
     aretes = [(0, 1), (0, 4), (1, 0), (1, 5), (2, 6), (3, 7), (4, 0), (4, 5), (5, 1) , \
@@ -75,3 +74,8 @@ if __name__ == "__main__":
     #afficher_labyrinthe(Labyrinthe, colonnes, lignes)
     chemin_bfs =chercher_bfs(Labyrinthe)
     print(chemin_bfs)
+    itineraire = chercher_bfs(Labyrinthe, 3, 11)
+    print(itineraire)
+    plt.clf() # Efface le dessin
+    nx.draw(Labyrinthe, with_labels=True)
+    plt.show()
