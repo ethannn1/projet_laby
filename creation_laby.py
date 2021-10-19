@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 #importation des bibliothèques
 import networkx as nx
 import matplotlib.pyplot as plt
